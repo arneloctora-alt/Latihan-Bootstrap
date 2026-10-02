@@ -1,0 +1,286 @@
+/* =========================
+   BODY
+========================= */
+
+body {
+
+    margin: 0;
+
+    font-family: Arial, sans-serif;
+
+}
+
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar .nav-link {
+    color: #d8a7b1 !important;
+    font-weight: 500;
+}
+
+.navbar .nav-link:hover {
+    color: #b8a1d9 !important;
+}
+
+
+.navbar .navbar-brand {
+    color: #8f5365;
+    font-weight: bold;
+}
+
+.navbar {
+
+    min-height: 50px;
+    background-color:rgb(248, 245, 245) ;
+
+}
+
+
+/* LOGO */
+
+.logo {
+
+    width: 50px;
+
+    height: 50px;
+
+    border: 1px solid black;
+
+    border-radius: 100%;
+
+    background-color: rgb(255, 2, 2);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 12px;
+
+}
+
+
+
+/* =========================
+   HOME
+========================= */
+
+.hero {
+
+    min-height: 100vh;
+
+    background-image:
+
+        linear-gradient(
+            rgba(0, 0, 0, 0.45),
+            rgba(0, 0, 0, 0.45)
+        ),
+
+        url("img/pkmb\ all.jpg");
+
+    background-size: cover;
+
+    background-position: center;
+
+    color: rgb(187, 182, 182);
+
+}
+
+
+
+.hero h1 {
+    font-size: 50px;
+    font-weight: bold;
+    animation: welcomeGerak 2s ease-in-out infinite;
+}
+
+.hero p {
+    font-size: 20px;
+    animation: welcomeGerak 2s ease-in-out infinite;
+}
+@keyframes welcomeGerak {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-30px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+.hero .btn {
+    background-color: rgb(254, 228, 225);
+    transform: translateY(50px);
+}
+
+
+
+/* =========================
+   SERVICES
+========================= */
+
+.services {
+
+    min-height: 350px;
+
+    background-color: rgb(254, 228, 225);
+
+}
+
+
+
+.services h2 {
+
+    font-size: 35px;
+
+}
+
+
+
+.service-box {
+
+    background-color: #fdfdfd;
+
+    padding: 30px;
+
+    border-radius: 10px;
+
+    height: 100%;
+
+    text-align: center;
+
+    transition: 0.3s;
+
+}
+
+
+
+.service-box:hover {
+
+    transform: translateY(-10px);
+
+}
+
+
+
+.service-box h3 {
+
+    font-size: 25px;
+
+}
+
+
+
+.service-box p {
+
+    font-size: 15px;
+
+}
+
+
+
+.service-img {
+
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+
+}
+
+
+
+/* =========================
+   ABOUT
+========================= */
+
+.about {
+    min-height: 400px;
+
+    background-color: #f5f5f5;
+
+}
+
+
+
+.about h2 {
+
+    font-size: 35px;
+
+}
+
+
+
+.about h3 {
+
+    font-size: 28px;
+
+}
+
+
+
+.about p {
+
+    line-height: 1.7;
+
+}
+
+
+
+.about img {
+
+    width: 100%;
+
+    max-height: 250px;
+
+    object-fit: cover;
+
+}
+
+
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact {
+
+    min-height: 400px;
+
+    background-color: white;
+
+}
+
+
+
+.contact form {
+
+    background-color: #f5f5f5;
+
+    padding: 30px;
+
+    border-radius: 10px;
+
+}
+
+.contactus {
+    min-height: 350px;
+
+    background-color: rgb(254, 228, 225)
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+
+    background-color: rgb(254, 228, 225);
+
+}

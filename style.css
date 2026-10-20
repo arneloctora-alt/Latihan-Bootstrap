@@ -27,14 +27,14 @@ body {
 
 
 .navbar .navbar-brand {
-    color: #8f5365;
+    color: rgb(254, 228, 225);
     font-weight: bold;
 }
 
 .navbar {
 
     min-height: 50px;
-    background-color:rgb(248, 245, 245) ;
+    background-color:rgb(254, 228, 225) ;
 
 }
 
@@ -284,3 +284,16 @@ body {
     background-color: rgb(254, 228, 225);
 
 }
+
+html {
+    scroll-behavior: smooth;
+}
+
+section[id] {
+    scroll-margin-top: 80px;
+}
+
+.navbar .nav-link.active {
+    color: rgb(254, 228, 225);
+    font-weight: bold;
+}   

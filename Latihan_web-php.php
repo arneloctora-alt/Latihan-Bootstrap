@@ -1,4 +1,6 @@
-
+<?php
+require_once 'koneksi.php';
+?>
 <!DOCTYPE html>
 <html lang="id">
 
@@ -14,7 +16,10 @@
     <!-- CSS website yang sudah ada -->
     <link rel="stylesheet" href="style.css">
 
-    <!-- CSS tambahan untuk JavaScript Web-JS -->
+    <!-- jQuery dipertahankan sesuai kode awal -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- CSS tambahan: desain dipertahankan -->
     <style>
         html {
             scroll-behavior: smooth;
@@ -62,10 +67,8 @@
     <!-- ================= NAVBAR ================= -->
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-
         <div class="container">
 
-            <!-- LOGO -->
             <a class="navbar-brand" href="#home">
                 <img
                     src="img/pkmb.jpg"
@@ -77,7 +80,6 @@
                 PKMB TANGKIL
             </a>
 
-            <!-- BUTTON MOBILE -->
             <button
                 class="navbar-toggler"
                 type="button"
@@ -88,10 +90,8 @@
                 aria-label="Buka navigasi">
 
                 <span class="navbar-toggler-icon"></span>
-
             </button>
 
-            <!-- MENU -->
             <div
                 class="collapse navbar-collapse justify-content-end"
                 id="menu">
@@ -107,35 +107,24 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#services">
-                            Services
-                        </a>
+                        <a class="nav-link" href="#services">Services</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#about">
-                            About
-                        </a>
+                        <a class="nav-link" href="#about">About</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#contactus">
-                            Contact Us
-                        </a>
+                        <a class="nav-link" href="#contactus">Contact Us</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#contact">
-                            Feedback
-                        </a>
+                        <a class="nav-link" href="#contact">Feedback</a>
                     </li>
 
                 </ul>
-
             </div>
-
         </div>
-
     </nav>
 
 
@@ -147,32 +136,23 @@
 
         <div class="container">
 
-            <h1>
-                PKMB GBI TANGKIL
-            </h1>
+            <h1>PKMB GBI TANGKIL</h1>
 
-            <p>
-                Welcome to Our Website
-            </p>
+            <p>Welcome to Our Website</p>
 
             <a
                 href="#services"
                 class="btn btn-light js-scroll-link">
-
                 Learn More
-
             </a>
 
         </div>
-
     </section>
 
 
     <!-- ================= SERVICES ================= -->
 
-    <section
-        id="services"
-        class="services py-5">
+    <section id="services" class="services py-5">
 
         <div class="container">
 
@@ -183,9 +163,7 @@
                     class="service-img img-fluid"
                     alt="Activities">
 
-                <h2>
-                    Activities
-                </h2>
+                <h2>Activities</h2>
 
                 <p class="activities-desc">
                     Discover our activities, grow together in faith, and build meaningful
@@ -194,100 +172,64 @@
 
             </div>
 
-
             <div class="row">
-              <!-- SERVICE 1 -->
-                <div class="col-lg-4 col-md-6 mb-4">
+                <?php
+                $sql = "SELECT * FROM kegiatan";
+                $result = mysqli_query($conn, $sql);
 
-                    <div class="service-box">
-                        <h3>Fellowship</h3>
+                if ($result && mysqli_num_rows($result) > 0) {
+                    while ($kegiatan = mysqli_fetch_assoc($result)) {
+                ?>
 
-                        <p>
-                            Every Saturday<br>
-                            4 pm<br>
-                            GBI Tangkil
-                        </p>
-
-                        <p class="activity-desc">
-                            A time to worship, share, and grow together as one community.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <!-- SERVICE 2 -->
                     <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="service-box">
-                    <h3>
-                            Sharing Our Faith
-                        </h3>
+                        <div class="service-box">
 
-                        <p class="activity-desc">
-                            A moment to share God's Word, experiences, and faith with one another.
-                        </p>
+                            <h3>
+                                <?= htmlspecialchars($kegiatan['judul']) ?>
+                            </h3>
 
+                            <?php if (!empty($kegiatan['jadwal'])) { ?>
+                                <p>
+                                    <?= htmlspecialchars($kegiatan['jadwal']) ?>
+                                </p>
+                            <?php } ?>
+
+                            <p class="activity-desc">
+                                <?= htmlspecialchars($kegiatan['deskripsi']) ?>
+                            </p>
+
+                        </div>
                     </div>
 
-                </div>
-
-
-                <!-- SERVICE 3 -->
-            <div class="col-lg-4 col-md-6 mb-4">
-
-                    <div class="service-box">
-
-                        <h3>
-                            Sunday School
-                        </h3>
-
-                        <p>
-                            After the Sunday service
-                        </p>
-
-                        <p class="activity-desc">
-                            Learn God's Word together and discover how to apply His teachings
-                            in our daily lives.
-                        </p>
-
-                    </div>
-
-                </div>
+                <?php
+                    }
+                } else {
+                    echo '<p class="text-center">Belum ada kegiatan.</p>';
+                }
+                ?>
+            </div>
 
         </div>
-
-        </div>
-
     </section>
+
 
     <!-- ================= ABOUT ================= -->
 
-    <section
-        id="about"
-        class="about py-5">
+    <section id="about" class="about py-5">
 
         <div class="container">
-        <div class="text-center mb-4">
 
-                <h2>
-                    About
-                </h2>
-
-                <p>
-                    About PKMB Tangkil
-                </p>
-
+            <div class="text-center mb-4">
+                <h2>About</h2>
+                <p>About PKMB Tangkil</p>
             </div>
 
-        <div class="row align-items-center">
+            <div class="row align-items-center">
 
                 <!-- TEXT -->
-            <div class="col-lg-6 mb-4 mb-lg-0">
+                <div class="col-lg-6 mb-4 mb-lg-0">
 
-                    <h3>
-                        PKMB GBI TANGKIL
-                    </h3>
+                    <h3>PKMB GBI TANGKIL</h3>
 
                     <p>
                         We are a youth group from the Tangkil Indonesian Baptist Church,
@@ -304,14 +246,12 @@
                         reflect God's love in our daily lives.
                     </p>
 
-            </div>
-                
-            <!-- GAMBAR -->
+                </div>
+
+                <!-- GAMBAR -->
                 <div class="col-lg-6">
 
-                    <h3>
-                        Performance
-                    </h3>
+                    <h3>Performance</h3>
 
                     <img
                         src="img/pkmb_all_new.jpg"
@@ -331,13 +271,9 @@
 
                     <div class="text-center mb-4">
 
-                        <h3>
-                            PKMB Statistics
-                        </h3>
+                        <h3>PKMB Statistics</h3>
 
-                        <p>
-                            Monthly Youth Activity Statistics
-                        </p>
+                        <p>Monthly Youth Activity Statistics</p>
 
                     </div>
 
@@ -359,15 +295,12 @@
             </div>
 
         </div>
-
     </section>
 
 
     <!-- ================= CONTACT US ================= -->
 
-    <section
-        id="contactus"
-        class="contactus py-5">
+    <section id="contactus" class="contactus py-5">
 
         <div class="container">
 
@@ -378,12 +311,9 @@
                     class="service-img img-fluid"
                     alt="Contact Us">
 
-                <h2>
-                    Contact Us
-                </h2>
+                <h2>Contact Us</h2>
 
             </div>
-
 
             <div class="row">
 
@@ -402,9 +332,7 @@
                                 href="https://www.instagram.com/tangkilbaptistyouth/"
                                 target="_blank"
                                 rel="noopener noreferrer">
-
                                 @tangkilbaptistyouth
-
                             </a>
                         </p>
 
@@ -412,12 +340,12 @@
 
                 </div>
 
-
                 <!-- WHATSAPP -->
                 <div class="col-lg-4 col-md-6 mb-4">
 
                     <div class="service-box">
-                    <img
+
+                        <img
                             src="img/waaa.jpg"
                             class="service-img img-fluid"
                             alt="WhatsApp">
@@ -427,16 +355,13 @@
                                 href="https://wa.me/6288227351103"
                                 target="_blank"
                                 rel="noopener noreferrer">
-
                                 +62 88227351103<br>
-
                             </a>
                         </p>
 
                     </div>
 
                 </div>
-
 
                 <!-- MAPS -->
                 <div class="col-lg-4 col-md-6 mb-4">
@@ -453,10 +378,8 @@
                                 href="https://maps.google.com/?q=Grompolan+Tangkil+Sragen"
                                 target="_blank"
                                 rel="noopener noreferrer">
-
                                 Grompolan RT 02/07, Tangkil,
                                 Sragen, Jawa Tengah
-
                             </a>
                         </p>
 
@@ -464,29 +387,21 @@
 
                 </div>
 
-        </div>
+            </div>
 
         </div>
-
     </section>
 
 
     <!-- ================= FEEDBACK ================= -->
 
-    <section
-        id="contact"
-        class="contact py-5">
+    <section id="contact" class="contact py-5">
 
         <div class="container">
 
             <div class="text-center mb-4">
-
-                <h2>
-                    Feedback
-                </h2>
-
+                <h2>Feedback</h2>
             </div>
-
 
             <form id="feedbackForm">
 
@@ -504,7 +419,6 @@
 
                     </div>
 
-
                     <div class="col-md-6 mb-3">
 
                         <input
@@ -519,7 +433,6 @@
 
                 </div>
 
-
                 <div class="mb-3">
 
                     <textarea
@@ -532,13 +445,8 @@
 
                 </div>
 
-
-                <button
-                    type="submit"
-                    class="btn btn-primary">
-
+                <button type="submit" class="btn btn-primary">
                     Send
-
                 </button>
 
                 <p
@@ -549,25 +457,19 @@
             </form>
 
         </div>
-
     </section>
 
 
     <!-- ================= FOOTER ================= -->
 
     <footer class="footer text-center py-3">
-
         © 2026 Copyright PKMB TANGKIL
-
     </footer>
 
 
     <!-- ================= JAVASCRIPT LOKAL ================= -->
 
-    <!-- Bootstrap JavaScript lokal -->
     <script src="js/bootstrap.bundle.min.js"></script>
-
-    <!-- Chart.js lokal, bukan CDN -->
     <script src="js/chart.js"></script>
 
 
@@ -584,14 +486,9 @@
                 '.navbar .nav-link[href^="#"]'
             );
 
-            const sections = document.querySelectorAll(
-                "section[id]"
-            );
-
+            const sections = document.querySelectorAll("section[id]");
             const menu = document.getElementById("menu");
 
-
-            // Fungsi mengubah menu active
             function setActiveMenu(sectionId) {
 
                 navLinks.forEach(function (link) {
@@ -599,23 +496,16 @@
                     const targetId = link.getAttribute("href").substring(1);
 
                     if (targetId === sectionId) {
-
                         link.classList.add("active");
                         link.setAttribute("aria-current", "page");
-
                     } else {
-
                         link.classList.remove("active");
                         link.removeAttribute("aria-current");
-
                     }
 
                 });
-
             }
 
-
-            // Klik menu untuk berpindah section dengan autoscroll
             navLinks.forEach(function (link) {
 
                 link.addEventListener("click", function (event) {
@@ -628,41 +518,31 @@
                     }
 
                     event.preventDefault();
-
-                    // Ubah menu active
                     setActiveMenu(targetId);
 
-                    // Autoscroll
                     const reduceMotion = window.matchMedia(
                         "(prefers-reduced-motion: reduce)"
                     ).matches;
 
                     targetSection.scrollIntoView({
-
                         behavior: reduceMotion ? "auto" : "smooth",
                         block: "start"
-
                     });
 
-                    // Tutup menu Bootstrap pada perangkat mobile
                     if (
                         menu &&
                         menu.classList.contains("show") &&
                         window.bootstrap &&
                         window.bootstrap.Collapse
                     ) {
-
                         window.bootstrap.Collapse
                             .getOrCreateInstance(menu)
                             .hide();
-
                     }
 
-                    // Perbarui hash URL tanpa memicu lompatan
                     history.replaceState(null, "", "#" + targetId);
 
                 });
-
             });
 
 
@@ -685,9 +565,7 @@
                             });
 
                         if (visibleSections.length > 0) {
-
                             setActiveMenu(visibleSections[0].target.id);
-
                         }
 
                     },
@@ -700,184 +578,225 @@
 
                 );
 
-
                 sections.forEach(function (section) {
-
                     observer.observe(section);
-
                 });
-
             }
 
 
             // =====================================
-            // 3. GRAFIK CHART.JS PADA SECTION ABOUT
+            // 3. GRAFIK CHART.JS
             // =====================================
 
             const chartCanvas = document.getElementById("aboutChart");
 
+            if (chartCanvas) {
 
-            if (chartCanvas && typeof Chart !== "undefined") {
+                if (typeof Chart === "undefined") {
 
-                new Chart(chartCanvas, {
+                    console.error(
+                        "Chart.js tidak ditemukan. Periksa file js/chart.js."
+                    );
 
-                    // Jenis grafik
-                    type: "bar",
+                } else {
 
-                    // Data statis
-                    data: {
+                    let aboutChart = null;
 
-                        labels: [
-                            "Januari",
-                            "Februari",
-                            "Maret",
-                            "April",
-                            "Mei",
-                            "Juni",
-                            "Juli",
-                            "Agustus",
-                            "September",
-                            "Oktober",
-                            "November",
-                            "Desember"
-                        ],
+                    async function updateAboutChart() {
 
-                        datasets: [{
+                        try {
 
-                            label: "Jumlah Kegiatan",
+                            const response = await fetch("data.php", {
+                                cache: "no-store"
+                            });
 
-                            data: [2, 3, 2, 2, 4, 2, 3, 2, 3, 3, 2, 7],
+                            if (!response.ok) {
+                                throw new Error(
+                                    "HTTP error: " + response.status
+                                );
+                            }
 
-                            backgroundColor:
-                                "rgb(254, 228, 225)",
+                            const data = await response.json();
 
-                            borderColor:
-                                "rgb(254, 228, 225)",
+                            if (!Array.isArray(data)) {
+                                throw new Error(
+                                    "Respons data.php bukan array JSON: " +
+                                    JSON.stringify(data)
+                                );
+                            }
 
-                            borderWidth: 1,
+                            const labels = data.map(function (item) {
+                                return item.bulan;
+                            });
 
-                            borderRadius: 5
+                            const values = data.map(function (item) {
+                                return Number(item.jumlah);
+                            });
 
-                        }]
+                            if (
+                                values.some(function (value) {
+                                    return !Number.isFinite(value);
+                                })
+                            ) {
+                                throw new Error(
+                                    "Ada nilai jumlah yang bukan angka."
+                                );
+                            }
 
-                    },
+                            if (aboutChart === null) {
 
+                                aboutChart = new Chart(chartCanvas, {
 
-                    // Pengaturan grafik
-                    options: {
+                                    type: "bar",
 
-                        responsive: true,
+                                    data: {
+                                        labels: labels,
 
-                        maintainAspectRatio: true,
+                                        datasets: [{
+                                            label: "Jumlah Kegiatan",
+                                            data: values,
+                                            backgroundColor: "rgb(254, 228, 225)",
+                                            borderColor: "rgb(254, 228, 225)",
+                                            borderWidth: 1,
+                                            borderRadius: 5
+                                        }]
+                                    },
 
-                        scales: {
+                                    options: {
+                                        responsive: true,
+                                        maintainAspectRatio: true,
 
-                            y: {
+                                        scales: {
+                                            y: {
+                                                beginAtZero: true,
+                                                ticks: {
+                                                    stepSize: 1
+                                                },
+                                                title: {
+                                                    display: true,
+                                                    text: "Jumlah Kegiatan"
+                                                }
+                                            },
 
-                                beginAtZero: true,
+                                            x: {
+                                                title: {
+                                                    display: true,
+                                                    text: "Bulan"
+                                                }
+                                            }
+                                        },
 
-                                ticks: {
-                                    stepSize: 1
-                                },
+                                        plugins: {
+                                            legend: {
+                                                display: true
+                                            },
 
-                                title: {
+                                            title: {
+                                                display: true,
+                                                text: "Statistik Kegiatan PKMB Tangkil"
+                                            },
 
-                                    display: true,
+                                            tooltip: {
+                                                enabled: true
+                                            }
+                                        }
+                                    }
 
-                                    text: "Jumlah Kegiatan"
+                                });
 
-                                }
+                            } else {
 
-                            },
-
-                            x: {
-
-                                title: {
-
-                                    display: true,
-
-                                    text: "Bulan"
-
-                                }
+                                aboutChart.data.labels = labels;
+                                aboutChart.data.datasets[0].data = values;
+                                aboutChart.update();
 
                             }
 
-                        },
+                            console.log("Data grafik berhasil dimuat:", data);
 
+                        } catch (error) {
 
-                        plugins: {
-
-                            legend: {
-
-                                display: true
-
-                            },
-
-                            title: {
-
-                                display: true,
-
-                                text: "Statistik Kegiatan PKMB Tangkil"
-
-                            },
-
-                            tooltip: {
-
-                                enabled: true
-
-                            }
+                            console.error("Grafik:", error);
 
                         }
-
                     }
 
-                });
+                    // PENTING: jalankan fungsi grafik pertama kali.
+                    updateAboutChart();
 
-            } else if (chartCanvas) {
+                    // Perbarui data setiap 5 detik.
+                    setInterval(updateAboutChart, 5000);
 
-                console.error(
-                    "Chart.js tidak ditemukan. Periksa file js/chart.umd.min.js."
-                );
-
-                chartCanvas.insertAdjacentHTML(
-                    "afterend",
-                    '<p class="text-danger text-center mt-3">' +
-                    'Grafik gagal dimuat. Periksa file Chart.js lokal.' +
-                    '</p>'
-                );
-
+                }
             }
 
 
+            
             // =====================================
-            // 4. FEEDBACK FORM DEMO
+            // 4. FEEDBACK FORM - SIMPAN KE DATABASE
             // =====================================
 
             const feedbackForm = document.getElementById("feedbackForm");
-
             const feedbackMessage = document.getElementById("feedbackMessage");
 
-
             if (feedbackForm) {
-
-                feedbackForm.addEventListener("submit", function (event) {
-
+                feedbackForm.addEventListener("submit", async function (event) {
                     event.preventDefault();
 
-                    feedbackMessage.textContent =
-                        "Terima kasih atas feedback kamu! Mohon maaf untuk saat ini Feedback masih belum bisa dikirimkan. Web masih dalam pemeliharaan. God Bless U <3";
+                    const submitButton = feedbackForm.querySelector(
+                        'button[type="submit"]'
+                    );
 
-                    feedbackMessage.className = "mt-3 text-success";
+                    const originalText = submitButton.textContent;
 
-                    feedbackForm.reset();
+                    submitButton.disabled = true;
+                    submitButton.textContent = "Mengirim...";
 
+                    try {
+                        const response = await fetch("simpan_feedback.php", {
+                            method: "POST",
+                            body: new FormData(feedbackForm)
+                        });
+
+                        const result = await response.json();
+
+                        if (!response.ok || !result.success) {
+                            throw new Error(
+                                result.message || "Feedback gagal dikirim."
+                            );
+                        }
+
+                        alert(result.message);
+
+                        feedbackMessage.textContent =
+                            "Feedback berhasil terkirim.";
+
+                        feedbackMessage.className = "mt-3 text-success";
+                        feedbackForm.reset();
+
+                    } catch (error) {
+                        console.error("Feedback:", error);
+
+                        alert(
+                            error.message ||
+                            "Feedback gagal dikirim. Silakan coba kembali."
+                        );
+
+                        feedbackMessage.textContent =
+                            "Feedback gagal dikirim. Silakan coba kembali.";
+
+                        feedbackMessage.className = "mt-3 text-danger";
+
+                    } finally {
+                        submitButton.disabled = false;
+                        submitButton.textContent = originalText;
+                    }
                 });
-
             }
-
         });
-    </script>
+                
+            </script>
 
 </body>
-
 </html>
+```
